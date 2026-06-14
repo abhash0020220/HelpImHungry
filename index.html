@@ -548,9 +548,9 @@
   const errorEl  = $('error-state');
 
   function show(s) {
-    loadEl.style.display   = s === 'load'   ? '' : 'none';
-    recipeEl.style.display = s === 'recipe' ? '' : 'none';
-    errorEl.style.display  = s === 'error'  ? '' : 'none';
+    loadEl.style.display   = s === 'load'   ? 'block' : 'none';
+    recipeEl.style.display = s === 'recipe' ? 'block' : 'none';
+    errorEl.style.display  = s === 'error'  ? 'block' : 'none';
   }
 
   // ── Fetch ─────────────────────────────────────────────────────────────────
