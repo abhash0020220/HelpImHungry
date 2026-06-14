@@ -48,7 +48,6 @@
       flex-direction: column;
     }
 
-    /* ── Header ── */
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -84,7 +83,6 @@
       justify-content: center;
       color: var(--text-3);
       transition: all 0.14s;
-      flex-shrink: 0;
     }
 
     .dark-btn:hover {
@@ -93,7 +91,6 @@
       background: var(--primary-light);
     }
 
-    /* ── Main ── */
     main {
       flex: 1;
       display: flex;
@@ -102,7 +99,7 @@
       padding: 36px 20px 72px;
     }
 
-    .card {
+    #card {
       background: var(--surface);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -112,7 +109,7 @@
     }
 
     /* ── Loading ── */
-    #loading-state {
+    .loading-wrap {
       padding: 80px 24px;
       text-align: center;
     }
@@ -135,9 +132,42 @@
       color: var(--text-2);
     }
 
-    /* ── Recipe ── */
-    #recipe-state { display: none; }
+    /* ── Error ── */
+    .error-wrap {
+      padding: 64px 28px;
+      text-align: center;
+    }
 
+    .error-emoji { font-size: 2.5rem; margin-bottom: 14px; }
+    .error-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .error-detail {
+      font-size: 0.875rem;
+      color: var(--text-2);
+      margin-bottom: 22px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: monospace;
+      word-break: break-all;
+    }
+
+    .btn-retry {
+      padding: 11px 26px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--primary);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.14s;
+    }
+
+    .btn-retry:hover { background: var(--primary-hover); }
+
+    /* ── Meal image ── */
     .meal-img-wrap {
       position: relative;
       width: 100%;
@@ -146,35 +176,23 @@
       overflow: hidden;
     }
 
-    #meal-img {
+    .meal-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: opacity 0.3s;
     }
 
-    .meal-source-link {
-      position: absolute;
-      bottom: 10px;
-      right: 12px;
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.75);
-      text-decoration: none;
-      background: rgba(0,0,0,0.35);
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-
+    /* ── Recipe body ── */
     .recipe-body {
-      padding: 28px 32px 32px;
+      padding: 28px 32px 36px;
     }
 
     .meta-row {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .badge {
@@ -187,7 +205,7 @@
       border: 1.5px solid;
     }
 
-    .badge-category {
+    .badge-cat {
       background: var(--primary-light);
       color: var(--primary);
       border-color: var(--primary-border);
@@ -212,15 +230,16 @@
       color: var(--text-1);
       line-height: 1.18;
       letter-spacing: -0.5px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
+    /* Roll button */
     .btn-roll {
       width: 100%;
       padding: 16px;
       font-size: 1.0625rem;
       font-weight: 700;
-      color: #ffffff;
+      color: #fff;
       background: var(--primary);
       border: none;
       border-radius: 12px;
@@ -232,43 +251,41 @@
       transition: background 0.14s, transform 0.1s, box-shadow 0.14s;
       box-shadow: 0 4px 18px rgba(249,115,22,0.38);
       font-family: inherit;
-      margin-bottom: 32px;
+      margin-bottom: 30px;
     }
 
-    .btn-roll:hover {
-      background: var(--primary-hover);
-      box-shadow: 0 6px 22px rgba(249,115,22,0.45);
-    }
-
+    .btn-roll:hover { background: var(--primary-hover); box-shadow: 0 6px 22px rgba(249,115,22,0.45); }
     .btn-roll:active { transform: scale(0.98); }
     .btn-roll:disabled { opacity: 0.65; cursor: not-allowed; transform: none !important; }
 
-    @keyframes spin-small { to { transform: rotate(360deg); } }
+    @keyframes spin-sm { to { transform: rotate(360deg); } }
     .btn-spinner {
       width: 18px;
       height: 18px;
       border: 2.5px solid rgba(255,255,255,0.35);
       border-top-color: #fff;
       border-radius: 50%;
-      animation: spin-small 0.7s linear infinite;
+      animation: spin-sm 0.7s linear infinite;
+      flex-shrink: 0;
     }
 
-    /* ── Recipe content ── */
+    /* Divider */
     .divider {
       height: 1px;
       background: var(--border);
-      margin: 0 0 28px;
+      margin-bottom: 28px;
     }
 
+    /* Two-column layout */
     .recipe-cols {
       display: grid;
-      grid-template-columns: 220px 1fr;
+      grid-template-columns: 210px 1fr;
       gap: 32px;
       align-items: start;
     }
 
-    .section-title {
-      font-size: 0.7rem;
+    .section-label {
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -277,60 +294,58 @@
     }
 
     /* Ingredients */
-    .ingredients-list {
+    .ing-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 9px;
     }
 
-    .ingredient-item {
+    .ing-item {
       display: flex;
-      align-items: baseline;
       gap: 10px;
       font-size: 0.875rem;
       line-height: 1.4;
+      align-items: baseline;
     }
 
-    .ingredient-measure {
+    .ing-measure {
       font-weight: 700;
       color: var(--primary);
       flex-shrink: 0;
-      min-width: 60px;
+      min-width: 58px;
       font-size: 0.8rem;
     }
 
-    .ingredient-name {
-      color: var(--text-1);
-    }
+    .ing-name { color: var(--text-1); }
 
     /* Instructions */
-    .instructions-body {
+    .steps {
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
-    .instruction-step {
+    .step {
       display: flex;
-      gap: 12px;
+      gap: 11px;
       align-items: flex-start;
     }
 
     .step-num {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: var(--primary-light);
       color: var(--primary);
       border: 1.5px solid var(--primary-border);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
     .step-text {
@@ -339,7 +354,7 @@
       line-height: 1.6;
     }
 
-    /* ── Actions ── */
+    /* Actions */
     .recipe-actions {
       display: flex;
       gap: 10px;
@@ -354,14 +369,13 @@
       padding: 10px 20px;
       font-size: 0.875rem;
       font-weight: 600;
-      color: #ffffff;
+      color: #fff;
       background: #dc2626;
       border: none;
       border-radius: 9px;
       text-decoration: none;
       cursor: pointer;
       transition: background 0.14s;
-      font-family: inherit;
     }
 
     .btn-yt:hover { background: #b91c1c; }
@@ -382,45 +396,10 @@
       font-family: inherit;
     }
 
-    .btn-share:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: var(--primary-light);
-    }
+    .btn-share:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .btn-share.ok    { border-color: #bbf7d0; color: #16a34a; background: #f0fdf4; }
 
-    .btn-share.ok {
-      border-color: #bbf7d0;
-      color: #16a34a;
-      background: #f0fdf4;
-    }
-
-    /* ── Error ── */
-    #error-state {
-      display: none;
-      padding: 60px 24px;
-      text-align: center;
-    }
-
-    .error-emoji { font-size: 2.5rem; margin-bottom: 14px; }
-    .error-title { font-size: 1.1rem; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
-    .error-msg   { font-size: 0.875rem; color: var(--text-2); margin-bottom: 20px; }
-
-    .btn-retry {
-      padding: 10px 24px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #fff;
-      background: var(--primary);
-      border: none;
-      border-radius: 9px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.14s;
-    }
-
-    .btn-retry:hover { background: var(--primary-hover); }
-
-    /* ── Footer ── */
+    /* Footer */
     footer {
       background: var(--surface);
       border-top: 1px solid var(--border);
@@ -436,18 +415,13 @@
       margin-bottom: 4px;
     }
 
-    .footer-note {
-      font-size: 0.78rem;
-      color: var(--text-3);
-      line-height: 1.6;
-    }
-
+    .footer-note { font-size: 0.78rem; color: var(--text-3); }
     .footer-note a { color: var(--primary); text-decoration: none; }
     .footer-note a:hover { text-decoration: underline; }
 
-    /* ── Responsive ── */
+    /* Responsive */
     @media (max-width: 600px) {
-      .recipe-body { padding: 22px 20px 26px; }
+      .recipe-body { padding: 20px 18px 28px; }
       .meal-name { font-size: 1.5rem; }
       .meal-img-wrap { height: 220px; }
       .recipe-cols { grid-template-columns: 1fr; gap: 24px; }
@@ -465,60 +439,7 @@
 </header>
 
 <main>
-  <div class="card">
-
-    <!-- Loading -->
-    <div id="loading-state">
-      <div class="spinner"></div>
-      <p class="loading-msg" id="loading-msg">Raiding the fridge…</p>
-    </div>
-
-    <!-- Recipe -->
-    <div id="recipe-state">
-      <div class="meal-img-wrap">
-        <img id="meal-img" alt="" />
-        <a id="meal-source" class="meal-source-link" target="_blank" rel="noopener">View full recipe ↗</a>
-      </div>
-
-      <div class="recipe-body">
-        <div class="meta-row">
-          <span class="badge badge-category" id="meal-category"></span>
-          <span class="badge badge-area" id="meal-area"></span>
-        </div>
-
-        <h2 class="meal-name" id="meal-name"></h2>
-
-        <button class="btn-roll" id="roll-btn" onclick="loadMeal()">
-          <span id="roll-inner">🎲 Feed me something else</span>
-        </button>
-
-        <div class="divider"></div>
-
-        <div class="recipe-cols">
-          <div class="ingredients-section">
-            <p class="section-title">Ingredients</p>
-            <ul class="ingredients-list" id="ingredients-list"></ul>
-          </div>
-
-          <div class="instructions-section">
-            <p class="section-title">Instructions</p>
-            <div class="instructions-body" id="instructions-body"></div>
-          </div>
-        </div>
-
-        <div class="recipe-actions" id="recipe-actions"></div>
-      </div>
-    </div>
-
-    <!-- Error -->
-    <div id="error-state">
-      <div class="error-emoji">😩</div>
-      <p class="error-title">Something went wrong</p>
-      <p class="error-msg" id="error-msg"></p>
-      <button class="btn-retry" onclick="loadMeal()">Try again</button>
-    </div>
-
-  </div>
+  <div id="card"></div>
 </main>
 
 <footer>
@@ -527,154 +448,145 @@
 </footer>
 
 <script>
-  const API = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const RANDOM_URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
   const LOADING_MSGS = [
     'Raiding the fridge…',
     'Consulting the chef…',
-    'Checking what\'s in the cupboard…',
+    'Checking the cupboard…',
     'Flipping through the cookbook…',
     'Something smells good…',
     'Almost plated…',
   ];
 
-  let msgInterval = null;
-  let currentMeal = null;
+  const card = document.getElementById('card');
+  let msgTimer = null;
+  let msgIdx = 0;
 
-  // ── DOM refs ──────────────────────────────────────────────────────────────
-  const $ = id => document.getElementById(id);
-  const loadEl   = $('loading-state');
-  const recipeEl = $('recipe-state');
-  const errorEl  = $('error-state');
+  // ── State helpers — just replace innerHTML, no CSS fights ─────────────────
+  function showLoading() {
+    card.innerHTML = `
+      <div class="loading-wrap">
+        <div class="spinner"></div>
+        <p class="loading-msg" id="lmsg">${LOADING_MSGS[0]}</p>
+      </div>`;
+    msgIdx = 0;
+    msgTimer = setInterval(() => {
+      msgIdx = (msgIdx + 1) % LOADING_MSGS.length;
+      const el = document.getElementById('lmsg');
+      if (el) el.textContent = LOADING_MSGS[msgIdx];
+    }, 1800);
+  }
 
-  function show(s) {
-    loadEl.style.display   = s === 'load'   ? 'block' : 'none';
-    recipeEl.style.display = s === 'recipe' ? 'block' : 'none';
-    errorEl.style.display  = s === 'error'  ? 'block' : 'none';
+  function stopLoading() {
+    clearInterval(msgTimer);
+    msgTimer = null;
+  }
+
+  function showError(msg) {
+    card.innerHTML = `
+      <div class="error-wrap">
+        <div class="error-emoji">😩</div>
+        <p class="error-title">Couldn't find a recipe</p>
+        <p class="error-detail">${esc(msg)}</p>
+        <button class="btn-retry" onclick="loadMeal()">Try again</button>
+      </div>`;
   }
 
   // ── Fetch ─────────────────────────────────────────────────────────────────
   async function loadMeal() {
-    setRolling(true);
-    show('load');
-    startLoadingMsgs();
-
+    showLoading();
     try {
-      const res  = await fetch(API);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const res = await fetch(RANDOM_URL);
+      if (!res.ok) throw new Error(`API returned HTTP ${res.status}`);
       const data = await res.json();
-      const meal = data.meals?.[0];
-      if (!meal) throw new Error('No meal returned');
-      currentMeal = meal;
-      renderMeal(meal);
-      show('recipe');
-    } catch (e) {
-      show('error');
-      $('error-msg').textContent = e.message;
-    } finally {
-      setRolling(false);
-      stopLoadingMsgs();
+      const meal = data.meals && data.meals[0];
+      if (!meal) throw new Error('API returned no meal data');
+      stopLoading();
+      showMeal(meal);
+    } catch (err) {
+      stopLoading();
+      showError(err.message);
     }
   }
 
-  function setRolling(on) {
-    const btn = $('roll-btn');
-    btn.disabled = on;
-    $('roll-inner').innerHTML = on
-      ? '<span class="btn-spinner"></span> Finding something good…'
-      : '🎲 Feed me something else';
-  }
-
-  function startLoadingMsgs() {
-    let i = 0;
-    $('loading-msg').textContent = LOADING_MSGS[0];
-    msgInterval = setInterval(() => {
-      i = (i + 1) % LOADING_MSGS.length;
-      $('loading-msg').textContent = LOADING_MSGS[i];
-    }, 1800);
-  }
-
-  function stopLoadingMsgs() {
-    clearInterval(msgInterval);
-    msgInterval = null;
-  }
-
   // ── Render ────────────────────────────────────────────────────────────────
-  function renderMeal(m) {
-    // Image
-    const img = $('meal-img');
-    img.style.opacity = '0';
-    img.src = m.strMealThumb;
-    img.alt = m.strMeal;
-    img.onload = () => { img.style.opacity = '1'; };
-
-    // Source link
-    const src = $('meal-source');
-    src.href = m.strSource || `https://www.themealdb.com/meal/${m.idMeal}`;
-
-    // Name & badges
-    $('meal-name').textContent = m.strMeal;
-    $('meal-category').textContent = m.strCategory || '';
-    $('meal-area').textContent = m.strArea || '';
-
-    // Ingredients
-    const ul = $('ingredients-list');
-    ul.innerHTML = '';
+  function showMeal(m) {
+    // Build ingredients
+    let ingHtml = '';
     for (let i = 1; i <= 20; i++) {
       const name    = (m[`strIngredient${i}`] || '').trim();
       const measure = (m[`strMeasure${i}`]    || '').trim();
       if (!name) continue;
-      const li = document.createElement('li');
-      li.className = 'ingredient-item';
-      li.innerHTML = `
-        <span class="ingredient-measure">${esc(measure)}</span>
-        <span class="ingredient-name">${esc(name)}</span>`;
-      ul.appendChild(li);
+      ingHtml += `
+        <li class="ing-item">
+          <span class="ing-measure">${esc(measure)}</span>
+          <span class="ing-name">${esc(name)}</span>
+        </li>`;
     }
 
-    // Instructions — split into steps
-    const body = $('instructions-body');
-    body.innerHTML = '';
+    // Build steps
     const raw   = (m.strInstructions || '').trim();
     const steps = raw.split(/\r?\n+/).map(s => s.trim()).filter(Boolean);
-    steps.forEach((step, i) => {
-      const div = document.createElement('div');
-      div.className = 'instruction-step';
-      div.innerHTML = `
+    let stepsHtml = steps.map((s, i) => `
+      <div class="step">
         <span class="step-num">${i + 1}</span>
-        <p class="step-text">${esc(step)}</p>`;
-      body.appendChild(div);
-    });
+        <p class="step-text">${esc(s)}</p>
+      </div>`).join('');
 
-    // Actions
-    const actions = $('recipe-actions');
-    actions.innerHTML = '';
+    // YouTube button
+    const ytHtml = m.strYoutube ? `
+      <a class="btn-yt" href="${esc(m.strYoutube)}" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+        </svg>
+        Watch on YouTube
+      </a>` : '';
 
-    if (m.strYoutube) {
-      const a = document.createElement('a');
-      a.className = 'btn-yt';
-      a.href = m.strYoutube;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg> Watch on YouTube`;
-      actions.appendChild(a);
-    }
-
-    const shareBtn = document.createElement('button');
-    shareBtn.className = 'btn-share';
-    shareBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share`;
-    shareBtn.onclick = () => shareMeal(shareBtn, m);
-    actions.appendChild(shareBtn);
+    card.innerHTML = `
+      <div class="meal-img-wrap">
+        <img class="meal-img" src="${esc(m.strMealThumb)}" alt="${esc(m.strMeal)}" />
+      </div>
+      <div class="recipe-body">
+        <div class="meta-row">
+          ${m.strCategory ? `<span class="badge badge-cat">${esc(m.strCategory)}</span>` : ''}
+          ${m.strArea     ? `<span class="badge badge-area">${esc(m.strArea)}</span>`    : ''}
+        </div>
+        <h2 class="meal-name">${esc(m.strMeal)}</h2>
+        <button class="btn-roll" onclick="loadMeal()">🎲 Feed me something else</button>
+        <div class="divider"></div>
+        <div class="recipe-cols">
+          <div>
+            <p class="section-label">Ingredients</p>
+            <ul class="ing-list">${ingHtml}</ul>
+          </div>
+          <div>
+            <p class="section-label">Instructions</p>
+            <div class="steps">${stepsHtml}</div>
+          </div>
+        </div>
+        <div class="recipe-actions">
+          ${ytHtml}
+          <button class="btn-share" onclick="shareMeal(this, '${esc(m.strMeal)}', '${m.idMeal}', '${esc(m.strCategory)}', '${esc(m.strArea)}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+            Share
+          </button>
+        </div>
+      </div>`;
   }
 
-  function shareMeal(btn, m) {
-    const text = `🍽️ ${m.strMeal}\n\nCategory: ${m.strCategory} · Cuisine: ${m.strArea}\n\nGet the full recipe: https://www.themealdb.com/meal/${m.idMeal}`;
+  function shareMeal(btn, name, id, cat, area) {
+    const text = `🍽️ ${name}\n\nCategory: ${cat} · Cuisine: ${area}\n\nhttps://www.themealdb.com/meal/${id}`;
     navigator.clipboard.writeText(text).then(() => {
       btn.classList.add('ok');
       btn.textContent = '✓ Copied!';
       setTimeout(() => {
         btn.classList.remove('ok');
-        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share`;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share`;
       }, 2200);
     });
   }
@@ -683,7 +595,8 @@
   const MOON = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
   const SUN  = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
 
-  const syncIcon = () => $('dark-btn').innerHTML = document.body.classList.contains('dark') ? SUN : MOON;
+  const syncIcon = () => document.getElementById('dark-btn').innerHTML =
+    document.body.classList.contains('dark') ? SUN : MOON;
 
   function toggleDark() {
     document.body.classList.toggle('dark');
@@ -696,9 +609,13 @@
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   function esc(s) {
-    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(s ?? '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
+  // ── Go ────────────────────────────────────────────────────────────────────
   loadMeal();
 </script>
 </body>
