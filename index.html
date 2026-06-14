@@ -516,21 +516,21 @@
   ];
 
   const CUISINE_OPTIONS = [
-    { flag: '🇺🇸', name: 'American',   area: 'American'   },
-    { flag: '🇬🇧', name: 'British',    area: 'British'    },
-    { flag: '🇨🇳', name: 'Chinese',    area: 'Chinese'    },
-    { flag: '🇫🇷', name: 'French',     area: 'French'     },
-    { flag: '🇬🇷', name: 'Greek',      area: 'Greek'      },
-    { flag: '🇮🇳', name: 'Indian',     area: 'Indian'     },
-    { flag: '🇮🇹', name: 'Italian',    area: 'Italian'    },
-    { flag: '🇯🇲', name: 'Jamaican',   area: 'Jamaican'   },
-    { flag: '🇯🇵', name: 'Japanese',   area: 'Japanese'   },
-    { flag: '🇲🇽', name: 'Mexican',    area: 'Mexican'    },
-    { flag: '🇲🇦', name: 'Moroccan',   area: 'Moroccan'   },
-    { flag: '🇪🇸', name: 'Spanish',    area: 'Spanish'    },
-    { flag: '🇹🇭', name: 'Thai',       area: 'Thai'       },
-    { flag: '🇹🇷', name: 'Turkish',    area: 'Turkish'    },
-    { flag: '🇻🇳', name: 'Vietnamese', area: 'Vietnamese' },
+    { flag: '🇺🇸', name: 'American',   area: 'United States' },
+    { flag: '🇬🇧', name: 'British',    area: 'British'       },
+    { flag: '🇨🇳', name: 'Chinese',    area: 'Chinese'       },
+    { flag: '🇫🇷', name: 'French',     area: 'France'        },
+    { flag: '🇬🇷', name: 'Greek',      area: 'Greek'         },
+    { flag: '🇮🇳', name: 'Indian',     area: 'India'         },
+    { flag: '🇮🇹', name: 'Italian',    area: 'Italian'       },
+    { flag: '🇯🇲', name: 'Jamaican',   area: 'Jamaican'      },
+    { flag: '🇯🇵', name: 'Japanese',   area: 'Japanese'      },
+    { flag: '🇲🇽', name: 'Mexican',    area: 'Mexican'       },
+    { flag: '🇲🇦', name: 'Moroccan',   area: 'Moroccan'      },
+    { flag: '🇪🇸', name: 'Spanish',    area: 'Spanish'       },
+    { flag: '🇹🇭', name: 'Thai',       area: 'Thai'          },
+    { flag: '🇹🇷', name: 'Turkish',    area: 'Turkish'       },
+    { flag: '🇻🇳', name: 'Vietnamese', area: 'Vietnamese'    },
   ];
 
   const LOADING_MSGS = [
@@ -660,49 +660,28 @@
     }
   }
 
-  // ── Fetch entry point ─────────────────────────────────────────────────────
+  // ── Fetch ─────────────────────────────────────────────────────────────────
   async function fetchMeal() {
     const diet    = prefs.diet;
     const cuisine = prefs.cuisine;
 
     if (!diet && !cuisine) return fetchRandom();
     if (diet && !cuisine)  return lookupRandom(await fetchList('c', diet));
+    if (!diet && cuisine)  return lookupRandom(await fetchList('a', cuisine));
 
-    // Try area filter — may return null on free tier, caught silently
-    let cuisinePool = null;
-    try { cuisinePool = await fetchList('a', cuisine); } catch (_) {}
-
-    if (!diet) {
-      // Cuisine-only: area filter gives us a list to pick from
-      if (cuisinePool) return lookupRandom(cuisinePool);
-      // Fallback: exhaustive search across all categories filtered by strArea
-      const meal = await comprehensiveSearch(cuisine, '');
-      if (meal) return meal;
-      throw new Error('Couldn\'t find a ' + cuisine + ' meal — try again');
-    }
-
-    // Diet + cuisine: scan the area pool first (covers ALL meals in that cuisine)
-    if (cuisinePool) {
-      const meal = await scanPool(cuisinePool, diet, null);
-      if (meal) return meal;
-      // Pool exhausted — no match despite scanning every meal in that cuisine
-    }
-
-    // Comprehensive fallback: fetch every TheMealDB category in parallel,
-    // combine into one big pool, scan for strArea + diet match
-    const meal = await comprehensiveSearch(cuisine, diet);
+    // Both diet + cuisine: fetch the full cuisine list, scan every meal for diet match
+    const pool = await fetchList('a', cuisine);
+    const meal = await scanForDiet(pool, diet);
     if (meal) return meal;
-
-    throw new Error('No ' + diet + ' ' + cuisine + ' meals found — try a different combination');
+    throw new Error('No ' + diet + ' meals found for ' + cuisine + ' cuisine — try a different combination');
   }
 
-  // Scan pool in parallel batches of 8 (speeds up sequential lookup bottleneck).
-  // cuisine=null skips the strArea check (pool is already cuisine-filtered).
-  async function scanPool(pool, diet, cuisine) {
+  // Scan a cuisine pool in parallel batches of 6, checking ingredients for diet
+  async function scanForDiet(pool, diet) {
     const shuffled = pool.slice().sort(() => Math.random() - 0.5);
-    const BATCH = 8;
+    const BATCH = 6;
     for (let i = 0; i < shuffled.length; i += BATCH) {
-      const batch = shuffled.slice(i, i + BATCH);
+      const batch   = shuffled.slice(i, i + BATCH);
       const settled = await Promise.allSettled(
         batch.map(s =>
           fetch(BASE + '/lookup.php?i=' + s.idMeal)
@@ -712,31 +691,10 @@
       );
       for (const r of settled) {
         if (r.status !== 'fulfilled' || !r.value) continue;
-        const meal = r.value;
-        if (cuisine && meal.strArea !== cuisine) continue;
-        if (!meetsDiet(meal, diet)) continue;
-        return meal;
+        if (meetsDiet(r.value, diet)) return r.value;
       }
     }
     return null;
-  }
-
-  // Fetch all 14 TheMealDB categories in parallel, deduplicate, then scanPool.
-  // This covers every meal in the database regardless of TheMealDB's category tags.
-  async function comprehensiveSearch(cuisine, diet) {
-    const CATS = ['Beef','Chicken','Lamb','Pork','Seafood','Vegetarian','Vegan',
-                  'Miscellaneous','Pasta','Starter','Side','Breakfast','Dessert','Goat'];
-    const pools = await Promise.allSettled(CATS.map(c => fetchList('c', c)));
-
-    const seen = Object.create(null);
-    const combined = [];
-    for (const p of pools) {
-      if (p.status !== 'fulfilled') continue;
-      for (const m of p.value) {
-        if (!seen[m.idMeal]) { seen[m.idMeal] = true; combined.push(m); }
-      }
-    }
-    return scanPool(combined, diet, cuisine);
   }
 
   async function fetchRandom() {
