@@ -109,23 +109,18 @@
       overflow: hidden;
     }
 
-    /* ── Landing page ── */
+    /* ── Landing ─────────────────────────────────────────────────────────── */
     .landing-wrap {
-      padding: 52px 36px 48px;
+      padding: 48px 36px 44px;
       text-align: center;
     }
 
-    .landing-hero {
-      font-size: 3rem;
-      margin-bottom: 6px;
-      line-height: 1;
-    }
+    .landing-hero  { font-size: 3rem; line-height: 1; margin-bottom: 8px; }
 
     .landing-title {
       font-family: 'Playfair Display', Georgia, serif;
       font-weight: 900;
       font-size: 2rem;
-      color: var(--text-1);
       letter-spacing: -0.5px;
       margin-bottom: 8px;
     }
@@ -133,13 +128,18 @@
     .landing-sub {
       font-size: 0.9375rem;
       color: var(--text-2);
-      margin-bottom: 40px;
+      margin-bottom: 38px;
       line-height: 1.5;
     }
 
-    .pref-section {
-      margin-bottom: 28px;
-      text-align: left;
+    /* Preference sections */
+    .pref-section { margin-bottom: 26px; text-align: left; }
+
+    .pref-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .pref-label {
@@ -148,23 +148,40 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--primary);
-      margin-bottom: 12px;
     }
 
-    .pref-hint {
-      font-size: 0.72rem;
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid;
+    }
+
+    .tag-req {
+      background: #fef2f2;
+      color: #dc2626;
+      border-color: #fecaca;
+    }
+
+    body.dark .tag-req {
+      background: #450a0a;
+      color: #f87171;
+      border-color: #7f1d1d;
+    }
+
+    .tag-opt {
+      background: transparent;
       color: var(--text-3);
-      margin-left: 8px;
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
+      border-color: var(--border);
     }
 
-    .pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    /* Diet pills */
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .pill {
       padding: 9px 20px;
@@ -192,6 +209,47 @@
       color: var(--primary);
     }
 
+    /* Cuisine flag grid */
+    .cuisine-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .cuisine-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.12s;
+      min-width: 68px;
+    }
+
+    .cuisine-btn:hover {
+      border-color: var(--primary-border);
+      background: var(--primary-light);
+    }
+
+    .cuisine-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .cuisine-flag { font-size: 1.75rem; line-height: 1; }
+
+    .cuisine-name {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+
+    .cuisine-btn.active .cuisine-name { color: var(--primary); }
+    .cuisine-btn:hover .cuisine-name  { color: var(--primary); }
+
+    /* Feed Me button */
     .btn-feed {
       margin-top: 10px;
       width: 100%;
@@ -212,23 +270,15 @@
     .btn-feed:hover { background: var(--primary-hover); box-shadow: 0 6px 22px rgba(249,115,22,0.45); }
     .btn-feed:active { transform: scale(0.98); }
 
-    .landing-note {
-      font-size: 0.72rem;
-      color: var(--text-3);
-      margin-top: 14px;
-    }
+    .landing-note { font-size: 0.72rem; color: var(--text-3); margin-top: 14px; }
 
-    /* ── Loading ── */
-    .loading-wrap {
-      padding: 80px 24px;
-      text-align: center;
-    }
+    /* ── Loading ─────────────────────────────────────────────────────────── */
+    .loading-wrap { padding: 80px 24px; text-align: center; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .spinner {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       border: 3px solid var(--border);
       border-top-color: var(--primary);
       border-radius: 50%;
@@ -236,20 +286,13 @@
       margin: 0 auto 16px;
     }
 
-    .loading-msg {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-2);
-    }
+    .loading-msg { font-size: 1rem; font-weight: 600; color: var(--text-2); }
 
-    /* ── Error ── */
-    .error-wrap {
-      padding: 64px 28px;
-      text-align: center;
-    }
-
+    /* ── Error ───────────────────────────────────────────────────────────── */
+    .error-wrap { padding: 64px 28px; text-align: center; }
     .error-emoji { font-size: 2.5rem; margin-bottom: 14px; }
     .error-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+
     .error-detail {
       font-size: 0.875rem;
       color: var(--text-2);
@@ -294,257 +337,125 @@
 
     .btn-back-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
 
-    /* ── Meal image ── */
+    /* ── Recipe ──────────────────────────────────────────────────────────── */
     .meal-img-wrap {
-      position: relative;
-      width: 100%;
-      height: 300px;
+      width: 100%; height: 300px;
       background: var(--border);
       overflow: hidden;
     }
 
-    .meal-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .meal-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* ── Recipe body ── */
-    .recipe-body {
-      padding: 28px 32px 36px;
-    }
+    .recipe-body { padding: 28px 32px 36px; }
 
     .meta-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-      align-items: center;
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 12px; align-items: center;
     }
 
     .badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 4px 12px;
-      border-radius: 999px;
-      border: 1.5px solid;
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 4px 12px; border-radius: 999px; border: 1.5px solid;
     }
 
-    .badge-cat {
-      background: var(--primary-light);
-      color: var(--primary);
-      border-color: var(--primary-border);
-    }
+    .badge-cat  { background: var(--primary-light); color: var(--primary); border-color: var(--primary-border); }
+    .badge-area { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+    .badge-time { background: #fefce8; color: #854d0e; border-color: #fde68a; }
 
-    .badge-area {
-      background: #f0fdf4;
-      color: #15803d;
-      border-color: #bbf7d0;
-    }
-
-    body.dark .badge-area {
-      background: #052e16;
-      color: #4ade80;
-      border-color: #14532d;
-    }
-
-    .badge-time {
-      background: #fefce8;
-      color: #854d0e;
-      border-color: #fde68a;
-    }
-
-    body.dark .badge-time {
-      background: #1c1400;
-      color: #fbbf24;
-      border-color: #713f12;
-    }
+    body.dark .badge-area { background: #052e16; color: #4ade80; border-color: #14532d; }
+    body.dark .badge-time { background: #1c1400; color: #fbbf24; border-color: #713f12; }
 
     .meal-name {
       font-family: 'Playfair Display', Georgia, serif;
-      font-weight: 900;
-      font-size: 2rem;
-      color: var(--text-1);
-      line-height: 1.18;
-      letter-spacing: -0.5px;
+      font-weight: 900; font-size: 2rem;
+      line-height: 1.18; letter-spacing: -0.5px;
       margin-bottom: 22px;
     }
 
-    /* Roll button */
     .btn-roll {
-      width: 100%;
-      padding: 16px;
-      font-size: 1.0625rem;
-      font-weight: 700;
-      color: #fff;
-      background: var(--primary);
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      width: 100%; padding: 16px;
+      font-size: 1.0625rem; font-weight: 700;
+      color: #fff; background: var(--primary);
+      border: none; border-radius: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
       transition: background 0.14s, transform 0.1s, box-shadow 0.14s;
       box-shadow: 0 4px 18px rgba(249,115,22,0.38);
-      font-family: inherit;
-      margin-bottom: 12px;
+      font-family: inherit; margin-bottom: 10px;
     }
 
-    .btn-roll:hover { background: var(--primary-hover); box-shadow: 0 6px 22px rgba(249,115,22,0.45); }
+    .btn-roll:hover  { background: var(--primary-hover); box-shadow: 0 6px 22px rgba(249,115,22,0.45); }
     .btn-roll:active { transform: scale(0.98); }
 
     .btn-change-prefs {
-      width: 100%;
-      padding: 10px;
-      font-size: 0.825rem;
-      font-weight: 600;
-      color: var(--text-3);
-      background: none;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.14s;
-      margin-bottom: 28px;
+      width: 100%; padding: 10px;
+      font-size: 0.825rem; font-weight: 600;
+      color: var(--text-3); background: none;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.14s; margin-bottom: 28px;
     }
 
     .btn-change-prefs:hover { border-color: var(--primary-border); color: var(--primary); background: var(--primary-light); }
 
-    /* Divider */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 28px;
-    }
+    .divider { height: 1px; background: var(--border); margin-bottom: 28px; }
 
-    /* Two-column layout */
     .recipe-cols {
       display: grid;
       grid-template-columns: 210px 1fr;
-      gap: 32px;
-      align-items: start;
+      gap: 32px; align-items: start;
     }
 
     .section-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--primary);
-      margin-bottom: 14px;
+      font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--primary); margin-bottom: 14px;
     }
 
-    /* Ingredients */
-    .ing-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
 
-    .ing-item {
-      display: flex;
-      gap: 10px;
-      font-size: 0.875rem;
-      line-height: 1.4;
-      align-items: baseline;
-    }
+    .ing-item { display: flex; gap: 10px; font-size: 0.875rem; line-height: 1.4; align-items: baseline; }
+    .ing-measure { font-weight: 700; color: var(--primary); flex-shrink: 0; min-width: 58px; font-size: 0.8rem; }
+    .ing-name    { color: var(--text-1); }
 
-    .ing-measure {
-      font-weight: 700;
-      color: var(--primary);
-      flex-shrink: 0;
-      min-width: 58px;
-      font-size: 0.8rem;
-    }
+    .steps { display: flex; flex-direction: column; gap: 14px; }
 
-    .ing-name { color: var(--text-1); }
-
-    /* Instructions */
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .step {
-      display: flex;
-      gap: 11px;
-      align-items: flex-start;
-    }
+    .step { display: flex; gap: 11px; align-items: flex-start; }
 
     .step-num {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--primary-light);
-      color: var(--primary);
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--primary-light); color: var(--primary);
       border: 1.5px solid var(--primary-border);
-      font-size: 0.68rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
+      font-size: 0.68rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
     }
 
-    .step-text {
-      font-size: 0.875rem;
-      color: var(--text-2);
-      line-height: 1.6;
-    }
+    .step-text { font-size: 0.875rem; color: var(--text-2); line-height: 1.6; }
 
-    /* Actions */
-    .recipe-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 32px;
-      flex-wrap: wrap;
-    }
+    .recipe-actions { display: flex; gap: 10px; margin-top: 32px; flex-wrap: wrap; }
 
     .btn-yt {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 10px 20px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #fff;
-      background: #dc2626;
-      border: none;
-      border-radius: 9px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.14s;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; font-size: 0.875rem; font-weight: 600;
+      color: #fff; background: #dc2626; border: none; border-radius: 9px;
+      text-decoration: none; cursor: pointer; transition: background 0.14s;
     }
 
     .btn-yt:hover { background: #b91c1c; }
 
     .btn-share {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 10px 20px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-2);
-      background: none;
-      border: 1.5px solid var(--border);
-      border-radius: 9px;
-      cursor: pointer;
-      transition: all 0.14s;
-      font-family: inherit;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; font-size: 0.875rem; font-weight: 600;
+      color: var(--text-2); background: none;
+      border: 1.5px solid var(--border); border-radius: 9px;
+      cursor: pointer; transition: all 0.14s; font-family: inherit;
     }
 
     .btn-share:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
     .btn-share.ok    { border-color: #bbf7d0; color: #16a34a; background: #f0fdf4; }
 
-    /* Footer */
+    /* ── Footer ──────────────────────────────────────────────────────────── */
     footer {
       background: var(--surface);
       border-top: 1px solid var(--border);
@@ -554,24 +465,22 @@
 
     .footer-name {
       font-family: 'Playfair Display', Georgia, serif;
-      font-weight: 700;
-      font-size: 0.9375rem;
-      color: var(--primary);
-      margin-bottom: 4px;
+      font-weight: 700; font-size: 0.9375rem;
+      color: var(--primary); margin-bottom: 4px;
     }
 
     .footer-note { font-size: 0.78rem; color: var(--text-3); }
     .footer-note a { color: var(--primary); text-decoration: none; }
     .footer-note a:hover { text-decoration: underline; }
 
-    /* Responsive */
+    /* ── Responsive ──────────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .landing-wrap { padding: 36px 22px 36px; }
+      .landing-wrap  { padding: 36px 20px 36px; }
       .landing-title { font-size: 1.6rem; }
-      .recipe-body { padding: 20px 18px 28px; }
-      .meal-name { font-size: 1.5rem; }
+      .recipe-body   { padding: 20px 18px 28px; }
+      .meal-name     { font-size: 1.5rem; }
       .meal-img-wrap { height: 220px; }
-      .recipe-cols { grid-template-columns: 1fr; gap: 24px; }
+      .recipe-cols   { grid-template-columns: 1fr; gap: 24px; }
     }
   </style>
 </head>
@@ -598,17 +507,35 @@
   const BASE = 'https://www.themealdb.com/api/json/v1/1';
 
   const DIET_OPTIONS = [
-    { label: '🍽️ Anything',    value: null },
-    { label: '🥗 Vegetarian',  value: 'Vegetarian' },
-    { label: '🌱 Vegan',       value: 'Vegan' },
-    { label: '🐟 Seafood',     value: 'Seafood' },
-    { label: '🍗 Chicken',     value: 'Chicken' },
-    { label: '🥩 Beef',        value: 'Beef' },
+    { label: '🍽️ Anything',   value: ''           },
+    { label: '🥗 Vegetarian', value: 'Vegetarian' },
+    { label: '🌱 Vegan',      value: 'Vegan'      },
+    { label: '🐟 Seafood',    value: 'Seafood'    },
+    { label: '🍗 Chicken',    value: 'Chicken'    },
+    { label: '🥩 Beef',       value: 'Beef'       },
   ];
 
   const TIME_OPTIONS = [
-    { label: '⏰ Any time',       value: null },
+    { label: '⏰ Any time',        value: ''      },
     { label: '⚡ Quick (~30 min)', value: 'quick' },
+  ];
+
+  const CUISINE_OPTIONS = [
+    { flag: '🇺🇸', name: 'American',   area: 'American'   },
+    { flag: '🇬🇧', name: 'British',    area: 'British'    },
+    { flag: '🇨🇳', name: 'Chinese',    area: 'Chinese'    },
+    { flag: '🇫🇷', name: 'French',     area: 'French'     },
+    { flag: '🇬🇷', name: 'Greek',      area: 'Greek'      },
+    { flag: '🇮🇳', name: 'Indian',     area: 'Indian'     },
+    { flag: '🇮🇹', name: 'Italian',    area: 'Italian'    },
+    { flag: '🇯🇲', name: 'Jamaican',   area: 'Jamaican'   },
+    { flag: '🇯🇵', name: 'Japanese',   area: 'Japanese'   },
+    { flag: '🇲🇽', name: 'Mexican',    area: 'Mexican'    },
+    { flag: '🇲🇦', name: 'Moroccan',   area: 'Moroccan'   },
+    { flag: '🇪🇸', name: 'Spanish',    area: 'Spanish'    },
+    { flag: '🇹🇭', name: 'Thai',       area: 'Thai'       },
+    { flag: '🇹🇷', name: 'Turkish',    area: 'Turkish'    },
+    { flag: '🇻🇳', name: 'Vietnamese', area: 'Vietnamese' },
   ];
 
   const LOADING_MSGS = [
@@ -623,17 +550,29 @@
   const card = document.getElementById('card');
   let msgTimer = null;
   let msgIdx   = 0;
-  let prefs    = { diet: null, time: null };
+  // '' = no restriction (not null, avoids JSON.stringify double-quote issue)
+  let prefs = { diet: '', time: '', cuisine: '' };
 
-  // ── Landing page ──────────────────────────────────────────────────────────
+  // ── Landing ───────────────────────────────────────────────────────────────
   function showLanding() {
     stopLoading();
+
     const dietHtml = DIET_OPTIONS.map((o, i) =>
-      `<button class="pill${i === 0 ? ' active' : ''}" data-group="diet" data-value="${o.value ?? ''}" onclick="selectPill(this,'diet',${JSON.stringify(o.value)})">${o.label}</button>`
+      `<button class="pill${i === 0 && prefs.diet === '' ? ' active' : prefs.diet === o.value && prefs.diet !== '' ? ' active' : ''}"
+        data-group="diet" data-value="${o.value}" onclick="selectPill(this)">${o.label}</button>`
     ).join('');
 
-    const timeHtml = TIME_OPTIONS.map((o, i) =>
-      `<button class="pill${i === 0 ? ' active' : ''}" data-group="time" data-value="${o.value ?? ''}" onclick="selectPill(this,'time',${JSON.stringify(o.value)})">${o.label}</button>`
+    const timeHtml = TIME_OPTIONS.map(o =>
+      `<button class="pill${prefs.time === o.value ? ' active' : ''}"
+        data-group="time" data-value="${o.value}" onclick="selectPill(this)">${o.label}</button>`
+    ).join('');
+
+    const cuisineHtml = CUISINE_OPTIONS.map(c =>
+      `<button class="cuisine-btn${prefs.cuisine === c.area ? ' active' : ''}"
+        data-area="${c.area}" onclick="selectCuisine(this)">
+        <span class="cuisine-flag">${c.flag}</span>
+        <span class="cuisine-name">${c.name}</span>
+      </button>`
     ).join('');
 
     card.innerHTML = `
@@ -643,36 +582,53 @@
         <p class="landing-sub">Tell us a little about yourself and we'll find something delicious.</p>
 
         <div class="pref-section">
-          <p class="pref-label">Any dietary restrictions?</p>
+          <div class="pref-header">
+            <p class="pref-label">Any dietary restrictions?</p>
+            <span class="tag tag-req">Required</span>
+          </div>
           <div class="pills">${dietHtml}</div>
         </div>
 
         <div class="pref-section">
-          <p class="pref-label">How much time do you have? <span class="pref-hint">estimated from recipe length</span></p>
+          <div class="pref-header">
+            <p class="pref-label">Cuisine preference</p>
+            <span class="tag tag-opt">Optional — click a flag to pick, click again to clear</span>
+          </div>
+          <div class="cuisine-grid">${cuisineHtml}</div>
+        </div>
+
+        <div class="pref-section">
+          <div class="pref-header">
+            <p class="pref-label">How much time do you have?</p>
+            <span class="tag tag-opt">Optional</span>
+          </div>
           <div class="pills">${timeHtml}</div>
         </div>
 
         <button class="btn-feed" onclick="loadMeal()">Feed Me! →</button>
         <p class="landing-note">Powered by TheMealDB — completely free, no account needed.</p>
       </div>`;
-
-    // Restore pill state if user came back from a recipe
-    if (prefs.diet !== null) {
-      document.querySelectorAll('[data-group="diet"]').forEach(p => {
-        p.classList.toggle('active', p.dataset.value === (prefs.diet ?? ''));
-      });
-    }
-    if (prefs.time !== null) {
-      document.querySelectorAll('[data-group="time"]').forEach(p => {
-        p.classList.toggle('active', p.dataset.value === (prefs.time ?? ''));
-      });
-    }
   }
 
-  function selectPill(el, group, value) {
+  // Read value from data-value attr — avoids double-quote HTML attribute breakage
+  function selectPill(el) {
+    const group = el.dataset.group;
+    const value = el.dataset.value; // always a string, '' for "no restriction"
     document.querySelectorAll(`[data-group="${group}"]`).forEach(p => p.classList.remove('active'));
     el.classList.add('active');
     prefs[group] = value;
+  }
+
+  // Toggle behaviour: click again to deselect
+  function selectCuisine(el) {
+    const wasActive = el.classList.contains('active');
+    document.querySelectorAll('.cuisine-btn').forEach(b => b.classList.remove('active'));
+    if (!wasActive) {
+      el.classList.add('active');
+      prefs.cuisine = el.dataset.area;
+    } else {
+      prefs.cuisine = '';
+    }
   }
 
   // ── Loading ───────────────────────────────────────────────────────────────
@@ -723,59 +679,73 @@
   }
 
   async function fetchMeal() {
-    const { diet, time } = prefs;
+    const { diet, time, cuisine } = prefs;
     const wantQuick = time === 'quick';
-    const MAX_TRIES = wantQuick ? 4 : 1;
+    const MAX_TRIES = (wantQuick || (diet && cuisine)) ? 5 : 2;
 
-    if (diet) {
-      // Fetch the filtered list first (one call), then pick a random meal from it
-      const listRes = await fetch(`${BASE}/filter.php?c=${encodeURIComponent(diet)}`);
-      if (!listRes.ok) throw new Error(`Filter API returned HTTP ${listRes.status}`);
-      const listData = await listRes.json();
-      const meals = listData.meals;
-      if (!meals || meals.length === 0) throw new Error(`No ${diet} recipes found — try a different filter`);
+    // Decide which API filter to use as the primary list
+    let mealList = null;
+    if (diet && cuisine) {
+      mealList = await fetchList('c', diet); // diet filter; cuisine matched client-side
+    } else if (diet) {
+      mealList = await fetchList('c', diet);
+    } else if (cuisine) {
+      mealList = await fetchList('a', cuisine);
+    }
 
-      for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
-        const pick = meals[Math.floor(Math.random() * meals.length)];
+    let bestMatch = null;
+
+    for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
+      let meal;
+
+      if (mealList) {
+        const pick = mealList[Math.floor(Math.random() * mealList.length)];
         const res  = await fetch(`${BASE}/lookup.php?i=${pick.idMeal}`);
         if (!res.ok) continue;
         const data = await res.json();
-        const meal = data.meals?.[0];
+        meal = data.meals?.[0];
         if (!meal) continue;
-        if (wantQuick && attempt < MAX_TRIES - 1 && !isQuick(meal)) continue;
-        return meal;
-      }
-      throw new Error('Could not find a matching recipe — try again');
-    } else {
-      for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
+      } else {
         const res  = await fetch(`${BASE}/random.php`);
         if (!res.ok) throw new Error(`API returned HTTP ${res.status}`);
         const data = await res.json();
-        const meal = data.meals?.[0];
+        meal = data.meals?.[0];
         if (!meal) continue;
-        if (wantQuick && attempt < MAX_TRIES - 1 && !isQuick(meal)) continue;
-        return meal;
       }
-      throw new Error('API returned no meal data');
+
+      const cuisineOk = !diet || !cuisine || meal.strArea === cuisine;
+      const timeOk    = !wantQuick || isQuick(meal);
+
+      if (cuisineOk && timeOk) return meal;
+      if (!bestMatch || (cuisineOk && !isQuick(bestMatch))) bestMatch = meal;
     }
+
+    if (bestMatch) return bestMatch; // best we found within retries
+    throw new Error('Could not find a matching recipe — try relaxing your preferences');
+  }
+
+  async function fetchList(param, value) {
+    const res = await fetch(`${BASE}/filter.php?${param}=${encodeURIComponent(value)}`);
+    if (!res.ok) throw new Error(`Filter API returned HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data.meals?.length) throw new Error('No recipes found for these filters');
+    return data.meals;
   }
 
   function isQuick(meal) {
-    const words = (meal.strInstructions || '').split(/\s+/).filter(Boolean).length;
-    return words <= 300;
+    return (meal.strInstructions || '').split(/\s+/).filter(Boolean).length <= 300;
   }
 
   function estimateTime(instructions) {
-    const words = (instructions || '').split(/\s+/).filter(Boolean).length;
-    if (words <= 150) return '~15 min';
-    if (words <= 300) return '~30 min';
-    if (words <= 500) return '~45 min';
+    const w = (instructions || '').split(/\s+/).filter(Boolean).length;
+    if (w <= 150) return '~15 min';
+    if (w <= 300) return '~30 min';
+    if (w <= 500) return '~45 min';
     return '60+ min';
   }
 
   // ── Render ────────────────────────────────────────────────────────────────
   function showMeal(m) {
-    // Build ingredients
     let ingHtml = '';
     for (let i = 1; i <= 20; i++) {
       const name    = (m[`strIngredient${i}`] || '').trim();
@@ -788,14 +758,14 @@
         </li>`;
     }
 
-    // Build steps — strip bare number lines and "Step N" headers, then strip "1." prefixes
-    const raw   = (m.strInstructions || '').trim();
-    const steps = raw
+    // Strip bare step-number lines ("1", "STEP 2", "Step 3:") and clean "1. " prefixes
+    const steps = (m.strInstructions || '')
+      .trim()
       .split(/\r?\n+/)
       .map(s => s.trim())
       .filter(s => s.length > 0 && !/^(step\s*)?\d+[.:]?\s*$/i.test(s))
       .map(s => s.replace(/^(step\s*)?\d+[.:]\s*/i, '').trim())
-      .filter(s => s.length > 0);
+      .filter(Boolean);
 
     const stepsHtml = steps.map((s, i) => `
       <div class="step">
@@ -803,7 +773,6 @@
         <p class="step-text">${esc(s)}</p>
       </div>`).join('');
 
-    // YouTube button
     const ytHtml = m.strYoutube ? `
       <a class="btn-yt" href="${esc(m.strYoutube)}" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -811,8 +780,6 @@
         </svg>
         Watch on YouTube
       </a>` : '';
-
-    const timeEst = estimateTime(m.strInstructions);
 
     card.innerHTML = `
       <div class="meal-img-wrap">
@@ -822,7 +789,7 @@
         <div class="meta-row">
           ${m.strCategory ? `<span class="badge badge-cat">${esc(m.strCategory)}</span>` : ''}
           ${m.strArea     ? `<span class="badge badge-area">${esc(m.strArea)}</span>`    : ''}
-          <span class="badge badge-time">⏱ ${timeEst}</span>
+          <span class="badge badge-time">⏱ ${estimateTime(m.strInstructions)}</span>
         </div>
         <h2 class="meal-name">${esc(m.strMeal)}</h2>
         <button class="btn-roll" onclick="loadMeal()">🎲 Feed me something else</button>
