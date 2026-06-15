@@ -708,6 +708,12 @@
     const meal = await scanForPrefs(pool, diet, mealType);
     if (meal) return meal;
 
+    // Nothing matched all constraints — retry without mealType before giving up
+    if (mealType) {
+      const fallback = await scanForPrefs(pool, diet, '');
+      if (fallback) return fallback;
+    }
+
     const desc = [mealType, diet, cuisine].filter(Boolean).join(' + ');
     throw new Error('No ' + desc + ' recipe found — try a different combination');
   }
